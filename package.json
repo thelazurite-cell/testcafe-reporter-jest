@@ -1,10 +1,10 @@
 {
-  "name": "testcafe-reporter-xunit",
-  "version": "2.1.0",
-  "description": "xUnit TestCafe reporter plugin.",
-  "repository": "https://github.com/DevExpress/testcafe-reporter-xunit",
+  "name": "testcafe-reporter-junit",
+  "version": "2.2.0",
+  "description": "jUnit TestCafe reporter plugin.",
+  "repository": "https://github.com/alexschwantes/testcafe-reporter-junit",
   "author": {
-    "name": "Developer Express Inc.",
+    "name": "Developer Express Inc & Alex Schwantes",
     "url": "https://devexpress.com"
   },
   "main": "lib/index",
