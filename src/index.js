@@ -1,12 +1,12 @@
 export default function () {
     return {
-        noColors:           true,
-        report:             '',
-        startTime:          null,
-        uaList:             null,
-        currentFixtureName: null,
-        testCount:          0,
-        skipped:            0,
+        noColors:       true,
+        report:         '',
+        startTime:      null,
+        uaList:         null,
+        currentFixture: null,
+        testCount:      0,
+        skipped:        0,
 
         reportTaskStart (startTime, userAgents, testCount) {
             this.startTime = startTime;
@@ -14,8 +14,8 @@ export default function () {
             this.testCount = testCount;
         },
 
-        reportFixtureStart (name) {
-            this.currentFixtureName = this.escapeHtml(name);
+        reportFixtureStart (name, path, meta) {
+            this.currentFixture = { name: this.escapeHtml(name), path: path, meta: meta, tests: [] };
         },
 
         _renderErrors (testRunInfo) {
@@ -51,8 +51,8 @@ export default function () {
         reportTestDone (name, testRunInfo) {
             var hasErr = !!testRunInfo.errs.length;
             
-            var openTag = `<testcase classname="${this.currentFixtureName}" ` +
-                          `name="${this.escapeHtml(name)}" time="${testRunInfo.durationMs / 1000}">\n`;
+            var openTag = `<testcase classname="${this.currentFixture.name}" ` +
+                          `name="${this.escapeHtml(name)}" time="${testRunInfo.durationMs / 1000}" path="${this.currentFixture.path}">\n`;
 
             this.report += this.indentString(openTag, 2);
 
