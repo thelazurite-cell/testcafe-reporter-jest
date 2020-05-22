@@ -15,7 +15,7 @@
     "test": "gulp test",
     "preview": "gulp preview",
     "publish-please": "publish-please",
-    "prepublish": "publish-please guard"
+    "prepublishOnly": "publish-please guard"
   },
   "keywords": [
     "testcafe",
