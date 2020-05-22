@@ -1,6 +1,6 @@
 {
   "name": "testcafe-reporter-junit",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "jUnit TestCafe reporter plugin.",
   "repository": "https://github.com/alexschwantes/testcafe-reporter-junit",
   "author": {
