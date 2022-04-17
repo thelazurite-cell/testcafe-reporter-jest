@@ -18,33 +18,33 @@ module.exports = () => ({
     },
 
     _renderErrors (testRunInfo) {
-        this.report += this.indentString('<failure>\n', 4);
-        this.report += this.indentString('<![CDATA[', 4);
+        this.report += this.indentString('<failure>\n', 6);
+        this.report += this.indentString('<![CDATA[', 6);
         
         testRunInfo.errs.forEach((err, idx) => {
             err = this.formatError(err, `${idx + 1}) `);
 
             this.report += '\n';
-            this.report += this.indentString(err, 6);
+            this.report += this.indentString(err, 8);
             this.report += '\n';
         });
 
-        this.report += this.indentString(']]>\n', 4);
-        this.report += this.indentString('</failure>\n', 4);
+        this.report += this.indentString(']]>\n', 6);
+        this.report += this.indentString('</failure>\n', 6);
     },
 
     _renderSystemOut (testRunInfo) {
-        this.report += this.indentString('<system-out>\n', 4);
-        this.report += this.indentString('<![CDATA[', 4);
+        this.report += this.indentString('<system-out>\n', 6);
+        this.report += this.indentString('<![CDATA[', 6);
 
         if (testRunInfo.unstable)
-            this.report += this.indentString('\n(unstable)\n', 6);
+            this.report += this.indentString('\n(unstable)\n', 8);
 
         if (testRunInfo.screenshotPath)
-            this.report += this.indentString(`\n(screenshots: ${testRunInfo.screenshotPath})\n`, 6);
+            this.report += this.indentString(`\n(screenshots: ${testRunInfo.screenshotPath})\n`, 8);
 
-        this.report += this.indentString(']]>\n', 4);
-        this.report += this.indentString('</system-out>\n', 4);
+        this.report += this.indentString(']]>\n', 6);
+        this.report += this.indentString('</system-out>\n', 6);
     },
 
     reportTestDone (name, testRunInfo) {
@@ -53,11 +53,11 @@ module.exports = () => ({
         var openTag = `<testcase classname="${this.currentFixtureName}" ` +
                         `name="${this.escapeHtml(name)}" time="${testRunInfo.durationMs / 1000}">\n`;
 
-        this.report += this.indentString(openTag, 2);
+        this.report += this.indentString(openTag, 4);
 
         if (testRunInfo.skipped) {
             this.skipped++;
-            this.report += this.indentString('<skipped/>\n', 4);
+            this.report += this.indentString('<skipped/>\n', 6);
         }
         else if (hasErr)
             this._renderErrors(testRunInfo);
@@ -65,29 +65,29 @@ module.exports = () => ({
         if (testRunInfo.screenshotPath || testRunInfo.unstable)
             this._renderSystemOut(testRunInfo);
 
-        this.report += this.indentString('</testcase>\n', 2);
+        this.report += this.indentString('</testcase>\n', 4);
     },
 
     _renderWarnings (warnings) {
-        this.setIndent(2)
+        this.setIndent(3)
             .write('<system-out>')
             .newline()
             .write('<![CDATA[')
             .newline()
-            .setIndent(4)
+            .setIndent(6)
             .write(`Warnings (${warnings.length}):`)
             .newline();
 
         warnings.forEach(msg => {
-            this.setIndent(4)
+            this.setIndent(6)
                 .write('--')
                 .newline()
-                .setIndent(0)
-                .write(this.indentString(msg, 6))
+                .setIndent(3)
+                .write(this.indentString(msg, 8))
                 .newline();
         });
 
-        this.setIndent(2)
+        this.setIndent(3)
             .write(']]>')
             .newline()
             .write('</system-out>')
@@ -95,21 +95,31 @@ module.exports = () => ({
     },
 
     reportTaskDone (endTime, passed, warnings) {
-        var name     = `TestCafe Tests: ${this.escapeHtml(this.uaList)}`;
+        var title = 'Testcafe Tests';
+        var testSuiteTitle     = `${this.escapeHtml(this.uaList)}`;
         var failures = this.testCount - passed;
         var time     = (endTime - this.startTime) / 1000;
 
+        const testSuite = `<testsuite name="${testSuiteTitle}" tests="${this.testCount}" failures="${failures}" skipped="${this.skipped}"` +
+                    ` errors="${failures}" time="${time}" timestamp="${endTime.toUTCString()}" >`;
+
         this.write('<?xml version="1.0" encoding="UTF-8" ?>')
             .newline()
-            .write(`<testsuite name="${name}" tests="${this.testCount}" failures="${failures}" skipped="${this.skipped}"` +
-                    ` errors="${failures}" time="${time}" timestamp="${endTime.toUTCString()}" >`)
+            .write(`<testsuites name="${title}">`)
+            .newline()
+            .write(this.indentString(testSuite, 2))
             .newline()
             .write(this.report);
 
         if (warnings.length)
             this._renderWarnings(warnings);
 
-        this.setIndent(0)
+        this.setIndent(2)
             .write('</testsuite>');
+        
+        this.setIndent(0)
+            .newline()
+            .write('</testsuites>');
+        
     }
 });
