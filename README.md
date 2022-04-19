@@ -14,6 +14,8 @@
 
 This reporter plugin for TestCafe outputs a junit xml report that is compatible with continuous integration servers like Jenkins. The main difference between this plugin and the default xunit plugin is that in this plugin, the testcase name attribute will only contain the testcase name and any additional information such as screenshots and (unstable) flags are output to `<system-out/>` tag. This allows for better reporting and analysis or repeated test runs.
 
+Additionally, the test report is wrapped in the `<testsuites>` tag, so that the report can be displayed in github acitions using [Dorny's Test Report Action](https://github.com/dorny/test-reporter)
+
 <p align="center">
     <img src="https://raw.github.com/alexschwantes/testcafe-reporter-junit/master/media/preview.png" alt="preview" />
 </p>
