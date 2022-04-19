@@ -1,6 +1,6 @@
 {
   "name": "testcafe-reporter-jest",
-  "version": "1.0.0",
+  "version": "3.0.6",
   "description": "jest-junit TestCafe reporter plugin.",
   "repository": "https://github.com/alexschwantes/testcafe-reporter-junit",
   "author": {
@@ -38,6 +38,7 @@
     "normalize-newline": "^3.0.0",
     "publish-please": "^5.5.1",
     "read-file-relative": "^1.2.0",
+    "shelljs": "^0.8.5",
     "testcafe": "^1.8.2"
   }
 }
