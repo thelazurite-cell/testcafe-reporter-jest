@@ -19,31 +19,31 @@ module.exports = () => ({
 
     _renderErrors (testRunInfo) {
         this.report += this.indentString('<failure>\n', 6);
-        this.report += this.indentString('<![CDATA[', 6);
+        this.report += this.indentString('<![CDATA[', 8);
         
         testRunInfo.errs.forEach((err, idx) => {
             err = this.formatError(err, `${idx + 1}) `);
 
             this.report += '\n';
-            this.report += this.indentString(err, 8);
+            this.report += this.indentString(err, 10);
             this.report += '\n';
         });
 
-        this.report += this.indentString(']]>\n', 6);
+        this.report += this.indentString(']]>\n', 8);
         this.report += this.indentString('</failure>\n', 6);
     },
 
     _renderSystemOut (testRunInfo) {
         this.report += this.indentString('<system-out>\n', 6);
-        this.report += this.indentString('<![CDATA[', 6);
+        this.report += this.indentString('<![CDATA[', 8);
 
         if (testRunInfo.unstable)
-            this.report += this.indentString('\n(unstable)\n', 8);
+            this.report += this.indentString('\n(unstable)\n', 10);
 
         if (testRunInfo.screenshotPath)
-            this.report += this.indentString(`\n(screenshots: ${testRunInfo.screenshotPath})\n`, 8);
+            this.report += this.indentString(`\n(screenshots: ${testRunInfo.screenshotPath})\n`, 10);
 
-        this.report += this.indentString(']]>\n', 6);
+        this.report += this.indentString(']]>\n', 8);
         this.report += this.indentString('</system-out>\n', 6);
     },
 
@@ -69,39 +69,41 @@ module.exports = () => ({
     },
 
     _renderWarnings (warnings) {
-        this.setIndent(3)
+        this.setIndent(4)
             .write('<system-out>')
             .newline()
+            .setIndent(6)
             .write('<![CDATA[')
             .newline()
-            .setIndent(6)
+            .setIndent(8)
             .write(`Warnings (${warnings.length}):`)
             .newline();
 
         warnings.forEach(msg => {
-            this.setIndent(6)
+            this.setIndent(8)
                 .write('--')
                 .newline()
-                .setIndent(3)
-                .write(this.indentString(msg, 8))
+                .setIndent(4)
+                .write(this.indentString(msg, 6))
                 .newline();
         });
 
-        this.setIndent(3)
+        this.setIndent(6)
             .write(']]>')
+            .setIndent(4)
             .newline()
             .write('</system-out>')
             .newline();
     },
 
     reportTaskDone (endTime, passed, warnings) {
-        var title = 'Testcafe Tests';
+        var title = 'TestCafe Tests';
         var testSuiteTitle     = `${this.escapeHtml(this.uaList)}`;
         var failures = this.testCount - passed;
         var time     = (endTime - this.startTime) / 1000;
 
         const testSuite = `<testsuite name="${testSuiteTitle}" tests="${this.testCount}" failures="${failures}" skipped="${this.skipped}"` +
-                    ` errors="${failures}" time="${time}" timestamp="${endTime.toUTCString()}" >`;
+                    ` errors="${failures}" time="${time}" timestamp="${endTime.toUTCString()}">`;
 
         this.write('<?xml version="1.0" encoding="UTF-8" ?>')
             .newline()
