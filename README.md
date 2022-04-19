@@ -1,6 +1,12 @@
 # testcafe-reporter-jest
+
+
 <p align="center">
+    
+    
 [![Release](https://github.com/thelazurite-cell/testcafe-reporter-jest/actions/workflows/publish.yml/badge.svg)](https://github.com/thelazurite-cell/testcafe-reporter-jest/actions/workflows/publish.yml)
+    
+    
 </p>
 
     
