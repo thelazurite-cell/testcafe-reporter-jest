@@ -1,7 +1,7 @@
 {
-  "name": "testcafe-reporter-junit",
-  "version": "3.0.2",
-  "description": "jUnit TestCafe reporter plugin.",
+  "name": "testcafe-reporter-jest",
+  "version": "1.0.0",
+  "description": "jest-junit TestCafe reporter plugin.",
   "repository": "https://github.com/alexschwantes/testcafe-reporter-junit",
   "author": {
     "name": "Developer Express Inc & Alex Schwantes",
@@ -23,6 +23,7 @@
     "plugin",
     "xunit",
     "junit",
+    "jest",
     "nunit"
   ],
   "license": "MIT",

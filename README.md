@@ -14,7 +14,7 @@ This reporter plugin for TestCafe outputs a junit xml report that is compatible 
 To install this reporter, you can use the following command:
 
 ```
-npm install testcafe-reporter-junit
+npm install testcafe-reporter-jest
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ npm install testcafe-reporter-junit
 When you run tests from the command line, specify the reporter name by using the `--reporter` option:
 
 ```
-testcafe chrome 'path/to/test/file.js' --reporter junit
+testcafe chrome 'path/to/test/file.js' --reporter jest
 ```
 
 
@@ -33,6 +33,6 @@ testCafe
     .createRunner()
     .src('path/to/test/file.js')
     .browsers('chrome')
-    .reporter('junit') // <-
+    .reporter('jest') // <-
     .run();
 ```
