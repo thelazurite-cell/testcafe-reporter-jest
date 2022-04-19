@@ -1,10 +1,10 @@
 {
   "name": "testcafe-reporter-jest",
-  "version": "3.0.6",
+  "version": "1.0.0",
   "description": "jest-junit TestCafe reporter plugin.",
   "repository": "https://github.com/alexschwantes/testcafe-reporter-junit",
   "author": {
-    "name": "Developer Express Inc & Alex Schwantes",
+    "name": "Developer Express Inc, Alex Schwantes & Dylan Eddies",
     "url": "https://devexpress.com"
   },
   "main": "lib/index",
@@ -14,6 +14,7 @@
   "scripts": {
     "test": "gulp test",
     "preview": "gulp preview",
+    "ci": "gulp finalize",
     "publish-please": "publish-please",
     "prepublishOnly": "publish-please guard"
   },
